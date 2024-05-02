@@ -21,4 +21,17 @@ class SkillController extends AbstractController
         }, $skills);
         return $this->json($data);
     }
+
+    #[Route('/skill/{id}', name: 'get_skills_by_id')]
+    public function getSkillById(SkillRepository $skillRepository, int $id): JsonResponse
+    {
+        $skills = $skillRepository->findById($id);
+        $data = array_map(function ($skill) {
+            return [
+                'id' => $skill->getId(),
+                'name' => $skill->getName(),
+            ];
+        }, $skills);
+        return $this->json($data);
+    }
 }
